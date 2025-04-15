@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MQ Indian Society - Macquarie University</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 100%);
+      color: #fff;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    .bg-maroon {
+      background: linear-gradient(45deg, #800000, #B22222);
+    }
+
+    .btn-maroon {
+      background: linear-gradient(45deg, #800000, #B22222);
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-maroon:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(178, 34, 34, 0.3);
+    }
+
+    #three-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="fixed w-full z-50 py-4 px-6 md:px-12 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <span class="text-2xl font-bold text-red-400">MQIS</span>
+      <div class="hidden md:flex space-x-6">
+        <a href="#about">About</a>
+        <a href="#events">Events</a>
+        <a href="#team">Team</a>
+        <a href="#membership">Membership</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 3D Background -->
+  <div id="three-bg"></div>
+  <script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('three-bg').appendChild(renderer.domElement);
+
+    const geometry = new THREE.IcosahedronGeometry(10, 1);
+    const material = new THREE.MeshBasicMaterial({
+      color: 0x800000,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.3
+    });
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+
+    camera.position.z = 30;
+
+    function animate() {
+      requestAnimationFrame(animate);
+      mesh.rotation.x += 0.003;
+      mesh.rotation.y += 0.003;
+      renderer.render(scene, camera);
+    }
+
+    animate();
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+
+  <!-- About Section -->
+  <section id="about" class="py-20 px-6 md:px-12 text-center">
+    <h2 class="text-3xl font-bold mb-6">About MQIS</h2>
+    <p class="text-gray-300 max-w-3xl mx-auto">
+      MQIS is a cultural society at Macquarie University founded to celebrate and promote Indian culture on campus. We host large-scale events, festivals, and student engagements to build a community of cultural appreciation.
+    </p>
+  </section>
+
+  <!-- Events Section -->
+  <section id="events" class="py-20 px-6 md:px-12 text-center bg-black bg-opacity-50">
+    <h2 class="text-3xl font-bold mb-6">Upcoming Events</h2>
+    <p class="text-gray-300">Details coming soon...</p>
+  </section>
+
+  <!-- Team Section -->
+  <section id="team" class="py-20 px-6 md:px-12 text-center">
+    <h2 class="text-3xl font-bold mb-6">Our Team</h2>
+    <p class="text-gray-300">Meet the passionate students driving MQIS forward.</p>
+  </section>
+
+  <!-- Membership Section -->
+  <section id="membership" class="py-20 px-6 md:px-12 text-center bg-black bg-opacity-50">
+    <h2 class="text-3xl font-bold mb-6">Membership</h2>
+    <div class="max-w-md mx-auto bg-gray-900 p-8 rounded-lg">
+      <h3 class="text-xl font-bold mb-2">Student</h3>
+      <p class="text-4xl text-red-400 mb-4">$10<span class="text-base text-gray-400"> /year</span></p>
+      <button
+        onclick="window.location.href='https://events.humanitix.com/mqis-student-membership'"
+        class="btn-maroon w-full py-3 rounded-full"
+      >
+        Join Now
+      </button>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery" class="py-20 px-6 md:px-12 text-center">
+    <h2 class="text-3xl font-bold mb-6">Gallery</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=1170&q=80" class="rounded-lg">
+      <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a328?auto=format&fit=crop&w=1170&q=80" class="rounded-lg">
+      <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1170&q=80" class="rounded-lg">
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 px-6 md:px-12 text-center">
+    <h2 class="text-3xl font-bold mb-6">Connect With Us</h2>
+    <div class="flex justify-center gap-6 text-3xl mt-4">
+      <a href="https://www.instagram.com/mq.indiansociety/" target="_blank" class="text-pink-500"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.tiktok.com/@mqindiansociety" target="_blank" class="text-white"><i class="fab fa-tiktok"></i></a>
+      <a href="https://www.facebook.com/groups/690559278621697/?ref=share" target="_blank" class="text-blue-500"><i class="fab fa-facebook"></i></a>
+      <a href="https://www.linkedin.com/in/mqindiansociety/" target="_blank" class="text-blue-300"><i class="fab fa-linkedin"></i></a>
+      <a href="mailto:mqindiansociety@gmail.com" class="text-red-400"><i class="fas fa-envelope"></i></a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-6 text-gray-400 text-sm">
+    © 2025 MQ Indian Society. All rights reserved.
+  </footer>
+</body>
+</html>
