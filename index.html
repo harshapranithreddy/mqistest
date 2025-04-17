@@ -794,11 +794,83 @@
                 });
             });
         }
+
+        function initSpaceScene() {
+        const container = document.getElementById('mandala-container');
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        container.appendChild(renderer.domElement);
+
+        const coreGeometry = new THREE.SphereGeometry(8, 64, 64);
+        const coreMaterial = new THREE.MeshStandardMaterial({
+            color: 0xffd700,
+            emissive: 0xff4500,
+            emissiveIntensity: 1.2,
+            metalness: 0.5,
+            roughness: 0.2,
+        });
+        const mandala = new THREE.Mesh(coreGeometry, coreMaterial);
+        scene.add(mandala);
+
+        const ring = new THREE.Mesh(
+            new THREE.TorusGeometry(12, 0.1, 16, 100),
+            new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, opacity: 0.3, transparent: true })
+        );
+        ring.rotation.x = Math.PI / 4;
+        scene.add(ring);
+
+        const stars = new THREE.BufferGeometry();
+        const starVertices = [];
+        for (let i = 0; i < 10000; i++) {
+            const x = THREE.MathUtils.randFloatSpread(200);
+            const y = THREE.MathUtils.randFloatSpread(200);
+            const z = THREE.MathUtils.randFloatSpread(200);
+            starVertices.push(x, y, z);
+        }
+        stars.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+        const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.5 });
+        const starField = new THREE.Points(stars, starMaterial);
+        scene.add(starField);
+
+        const light = new THREE.PointLight(0xff00ff, 2, 100);
+        light.position.set(0, 0, 20);
+        scene.add(light);
+
+        camera.position.z = 40;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            mandala.rotation.y += 0.005;
+            ring.rotation.z += 0.002;
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+    }
+
+    // Now trigger it on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        createStars();
+        initSpaceScene(); // 👈 Right here!
+        initAsteroids();
+        setupScrollAnimations();
+        setupSmoothScrolling();
+    });
         
         // Initialize everything when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
             createStars();
-            initMandala();
+            // initMandala();
+            initSpaceScene();
             initAsteroids();
             setupScrollAnimations();
             setupSmoothScrolling();
