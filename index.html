@@ -158,7 +158,41 @@
           animation: fadeInDown 0.6s ease-out;
         }
 
+         /* Smooth Popup Animation Fix */
+        /* Snackbar Style Popup */
+        #thankYouPopup {
+          position: fixed;
+          bottom: -100px; /* Start below view */
+          left: 50%;
+          transform: translateX(-50%);
+          background: linear-gradient(to right, #b22222, #dc143c);
+          padding: 1.5rem 2.5rem;
+          border-radius: 1rem;
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+          z-index: 9999;
+          opacity: 0;
+          pointer-events: none;
+          transition: bottom 0.5s ease, opacity 0.5s ease;
+        }
         
+        #thankYouPopup.show {
+          bottom: 30px; /* Slide into view */
+          opacity: 1;
+          pointer-events: auto;
+        }
+
+        .popup-text {
+          text-align: center;
+          font-size: 1rem;
+          font-weight: 500;
+          line-height: 1.5;
+        }
+        
+        #thankYouPopup.show {
+          animation: slideUpFade 0.4s ease forwards;
+        }
+
+
             </style>
         </head>
 <body>
@@ -634,12 +668,12 @@
         </form>
         
         <!-- Thank You Popup -->
-        <!-- Thank You Popup -->
-        <div id="thankYouPopup" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-red-800 to-red-600 text-white px-8 py-6 rounded-2xl shadow-2xl hidden z-50 animate-fade-in-down text-center max-w-sm">
-          <p class="font-semibold text-lg leading-relaxed">
-            Thank you for reaching out!<br>We'll get back to you very soon.
+        <div id="thankYouPopup" aria-live="polite">
+          <p class="popup-text">
+            Thank you for reaching out🤩<br>We’ll get back to you very soon!
           </p>
         </div>
+
 
 
     </section>
@@ -866,38 +900,62 @@
         });
 
         const form = document.getElementById('contactForm');
-          const popup = document.getElementById('thankYouPopup');
+      const popup = document.getElementById('thankYouPopup');
+    
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+    
+        const formData = new FormData(form);
+    
+        fetch("https://formsubmit.co/mqindiansociety@gmail.com", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => {
+            if (response.ok) {
+              popup.classList.add("show");
+              form.reset();
+              setTimeout(() => {
+                popup.classList.remove("show");
+              }, 1800); // Keep popup for ~1.8s for snappy experience
+            } else {
+              alert("Something went wrong. Please try again later.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("There was an error sending your message.");
+          });
+      });
+
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
         
-          form.addEventListener('submit', function (e) {
-            e.preventDefault(); // prevent default form behavior
+          const formData = new FormData(form);
         
-            const formData = new FormData(form);
-        
-            fetch("https://formsubmit.co/mqindiansociety@gmail.com", {
-              method: "POST",
-              body: formData,
-            })
-            .then(response => {
+          fetch("https://formsubmit.co/mqindiansociety@gmail.com", {
+            method: "POST",
+            body: formData,
+          })
+            .then((response) => {
               if (response.ok) {
-                popup.classList.remove('hidden');
-        
-                // Clear form after short delay
+                popup.classList.add("show");
                 form.reset();
         
-                // Hide popup after 3.5 seconds
+                // Remove the popup after 2.5s
                 setTimeout(() => {
-                  popup.classList.add('hidden');
-                }, 3500);
+                  popup.classList.remove("show");
+                }, 2500);
               } else {
                 alert("Something went wrong. Please try again later.");
               }
             })
-            .catch(error => {
+            .catch((error) => {
               console.error("Error:", error);
               alert("There was an error sending your message.");
             });
-          });
-                
+        });
+
     </script>
 </body>
 </html>
