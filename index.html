@@ -198,45 +198,36 @@
           height: 100%;
           overflow: hidden;
         }
-
-        
         
         .slide {
           position: absolute;
+          top: 0;
+          left: 0;
           width: 100%;
           height: 100%;
           background-size: cover;
           background-position: center;
           opacity: 0;
-          animation: fadeSlide 105s infinite;
-          z-index: 1; /* 👈 Make sure each slide is stacked above */
-          transition: opacity 1.5s ease-in-out; /* 👈 Smoother transition */
+          transition: opacity 1s ease-in-out;
+          z-index: 0;
+        }
+        
+        .slide.active {
+          opacity: 1;
+          z-index: 1;
+        }
+        
+        /* Optional: Add zoom effect */
+        @keyframes kenburnsZoom {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.05); }
+          100% { transform: scale(1); }
+        }
+        
+        .slide.active {
+          animation: kenburnsZoom 10s ease-in-out infinite;
         }
 
-        
-        .slide:nth-child(1)  { animation-delay: 0s; }
-        .slide:nth-child(2)  { animation-delay: 7s; }
-        .slide:nth-child(3)  { animation-delay: 14s; }
-        .slide:nth-child(4)  { animation-delay: 21s; }
-        .slide:nth-child(5)  { animation-delay: 28s; }
-        .slide:nth-child(6)  { animation-delay: 35s; }
-        .slide:nth-child(7)  { animation-delay: 42s; }
-        .slide:nth-child(8)  { animation-delay: 49s; }
-        .slide:nth-child(9)  { animation-delay: 56s; }
-        .slide:nth-child(10) { animation-delay: 63s; }
-        .slide:nth-child(11) { animation-delay: 70s; }
-        .slide:nth-child(12) { animation-delay: 77s; }
-        .slide:nth-child(13) { animation-delay: 84s; }
-        .slide:nth-child(14) { animation-delay: 91s; }
-        .slide:nth-child(15) { animation-delay: 98s; }
-        
-        @keyframes fadeSlide {
-          0%   { opacity: 0; }
-          5%   { opacity: 1; }
-          25%  { opacity: 1; }
-          30%  { opacity: 0; }
-          100% { opacity: 0; }
-        }
 
         
         #thankYouPopup.show {
@@ -270,7 +261,7 @@
         <div class="slide" style="background-image: url('https://i.imgur.com/wDPFXap.jpeg')"></div>
         <div class="slide" style="background-image: url('https://i.imgur.com/0l2CGD7.jpeg')"></div>
       </div>
-      <div class="slideshow-overlay absolute inset-0 bg-black opacity-50"></div>
+<!--       <div class="slideshow-overlay absolute inset-0 bg-black opacity-50"></div> -->
     </div>
 
     
@@ -1073,5 +1064,30 @@
   });
         
     </script>
+
+    <script>
+    // Simple Slideshow
+    document.addEventListener('DOMContentLoaded', function () {
+      const slides = document.querySelectorAll('.slide');
+      let currentSlide = 0;
+      const slideInterval = 5000; // 5 seconds per slide
+    
+      function showSlide(index) {
+        slides.forEach((slide, idx) => {
+          slide.classList.toggle('active', idx === index);
+        });
+      }
+    
+      function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+      }
+    
+      showSlide(currentSlide); // Show first slide immediately
+      setInterval(nextSlide, slideInterval); // Change slide every 5s
+    });
+    </script>
+
+    
 </body>
 </html>
