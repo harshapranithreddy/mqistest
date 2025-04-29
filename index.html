@@ -192,43 +192,6 @@
           line-height: 1.5;
         }
 
-        .slideshow-fade-container {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          overflow: hidden;
-        }
-        
-        .slide {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-size: cover;
-          background-position: center;
-          opacity: 0;
-          transition: opacity 1s ease-in-out;
-          z-index: 0;
-        }
-        
-        .slide.active {
-          opacity: 1;
-          z-index: 1;
-        }
-        
-        /* Optional: Add zoom effect */
-        @keyframes kenburnsZoom {
-          0% { transform: scale(1); }
-          50% { transform: scale(1.05); }
-          100% { transform: scale(1); }
-        }
-        
-        .slide.active {
-          animation: kenburnsZoom 10s ease-in-out infinite;
-        }
-
-
         
         #thankYouPopup.show {
           animation: slideUpFade 0.4s ease forwards;
@@ -240,35 +203,8 @@
 <div id="top"></div>
 <body>
     
-    <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover opacity-20 -z-10">
-      <source src="testgif.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-    
     <!-- Space Background -->
     <div id="space-bg"></div>
-
-    <!-- Hero Background Slideshow with Smooth Fade -->
-    <div id="heroSlideshow" class="absolute top-0 left-0 w-full h-full -z-10 overflow-hidden">
-      <div class="slideshow-fade-container">
-        <div class="slide" style="background-image: url('https://i.imgur.com/uL7rRda.jpeg')"></div>
-        <div class="slide" style="background-image: url('https://i.imgur.com/R2dOf0d.jpeg')"></div>
-        <div class="slide" style="background-image: url('https://i.imgur.com/oW2tMv4.jpeg')"></div>
-        <div class="slide" style="background-image: url('https://i.imgur.com/bvyz4WB.jpeg')"></div>
-        <div class="slide" style="background-image: url('https://i.imgur.com/4gyYCoD.jpeg')"></div>
-        <div class="slide" style="background-image: url('https://i.imgur.com/qJiZCxQ.jpeg')"></div>
-        <div class="slide" style="background-image: url('https://i.imgur.com/bezZH39.jpeg')"></div>
-        <div class="slide" style="background-image: url('https://i.imgur.com/lnrZfuN.jpeg')"></div>
-        <div class="slide" style="background-image: url('https://i.imgur.com/B6lpYVn.jpeg')"></div>
-        <div class="slide" style="background-image: url('https://i.imgur.com/9LRX2TA.jpeg')"></div>
-        <div class="slide" style="background-image: url('https://i.imgur.com/0l2CGD7.jpeg')"></div>
-        <div class="slide" style="background-image: url('https://i.imgur.com/JaU4SVO.jpeg')"></div>
-        <div class="slide" style="background-image: url('https://i.imgur.com/XASnmUO.jpeg')"></div>
-        <div class="slide" style="background-image: url('https://i.imgur.com/wDPFXap.jpeg')"></div>
-        <div class="slide" style="background-image: url('https://i.imgur.com/0l2CGD7.jpeg')"></div>
-      </div>
-<!--       <div class="slideshow-overlay absolute inset-0 bg-black opacity-50"></div> -->
-    </div>
 
     
     <!-- 3D Mandala Container -->
@@ -1057,30 +993,6 @@
       }
     });
   });
-        
-    </script>
-
-    <script>
-    // Simple Slideshow
-    document.addEventListener('DOMContentLoaded', function () {
-      const slides = document.querySelectorAll('.slide');
-      let currentSlide = 0;
-      const slideInterval = 5000; // 5 seconds per slide
-    
-      function showSlide(index) {
-        slides.forEach((slide, idx) => {
-          slide.classList.toggle('active', idx === index);
-        });
-      }
-    
-      function nextSlide() {
-        currentSlide = (currentSlide + 1) % slides.length;
-        showSlide(currentSlide);
-      }
-    
-      showSlide(currentSlide); // Show first slide immediately
-      setInterval(nextSlide, slideInterval); // Change slide every 5s
-    });
     </script>
 
     
