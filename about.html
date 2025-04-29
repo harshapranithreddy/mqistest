@@ -2,35 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About MQIS - Macquarie University</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About MQIS</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
     body {
       font-family: 'Poppins', sans-serif;
+      background-color: #090a0f;
       background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
-      color: white;
-      scroll-behavior: smooth;
+      color: #ffffff;
+      overflow-x: hidden;
     }
-
-    .glass-card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    .star {
+      position: absolute;
+      background-color: #fff;
+      border-radius: 50%;
+      animation: twinkle var(--duration) infinite ease-in-out;
     }
-
-    .hover-glow:hover {
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-      transform: translateY(-5px);
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
     }
   </style>
 </head>
 <body>
+  <!-- Space Background -->
+  <div id="space-bg"></div>
+  <div id="asteroids-container"></div>
 
-  <!-- Navbar -->
+  <!-- Navigation -->
   <nav class="fixed w-full z-50 py-4 px-6 md:px-12 bg-black bg-opacity-50 backdrop-blur-md">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
       <a href="index.html" class="flex items-center group">
@@ -38,57 +41,134 @@
         <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-red-600 group-hover:text-red-500 transition">MQIS</span>
       </a>
       <div class="hidden md:flex space-x-8">
-        <a href="index.html" class="text-white hover:text-red-600 transition">Home</a>
-        <a href="about.html" class="text-red-500 font-semibold">About</a>
+        <a href="about.html" class="text-white hover:text-red-600 transition">About</a>
         <a href="events.html" class="text-white hover:text-red-600 transition">Events</a>
+        <a href="membership.html" class="text-white hover:text-red-600 transition">Membership</a>
         <a href="gallery.html" class="text-white hover:text-red-600 transition">Gallery</a>
         <a href="team.html" class="text-white hover:text-red-600 transition">Team</a>
         <a href="contact.html" class="text-white hover:text-red-600 transition">Contact</a>
       </div>
+      <!-- Mobile Menu Button -->
+      <button id="mobileMenuToggle" class="md:hidden text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+      <!-- Mobile Menu -->
+      <div id="mobileMenu" class="md:hidden hidden absolute right-6 top-16 bg-black bg-opacity-80 rounded-lg shadow-lg py-4 px-6 space-y-3 text-white text-center">
+        <a href="about.html" class="block hover:text-red-600 transition">About</a>
+        <a href="events.html" class="block hover:text-red-600 transition">Events</a>
+        <a href="membership.html" class="block hover:text-red-600 transition">Membership</a>
+        <a href="gallery.html" class="block hover:text-red-600 transition">Gallery</a>
+        <a href="team.html" class="block hover:text-red-600 transition">Team</a>
+        <a href="contact.html" class="block hover:text-red-600 transition">Contact</a>
+      </div>
     </div>
   </nav>
 
-  <!-- Page Content -->
-  <section class="pt-32 pb-20 px-6 md:px-12 min-h-screen bg-black bg-opacity-60">
-    <div class="max-w-7xl mx-auto">
-      <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center text-white">About MQIS</h2>
-
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div>
-          <p class="text-lg text-gray-300 mb-8 leading-relaxed">
-            Established in 2022, the Macquarie University Indian Society (MQIS) has been at the forefront of promoting Indian culture and fostering a sense of community among students of Indian origin and those interested in Indian traditions and festivities.
-          </p>
-          <div class="grid grid-cols-2 gap-4">
-            <div class="glass-card p-6 rounded-xl hover-glow transition">
-              <div class="text-3xl font-bold text-red-500 mb-2">800+</div>
-              <div class="text-gray-300">Members</div>
-            </div>
-            <div class="glass-card p-6 rounded-xl hover-glow transition">
-              <div class="text-3xl font-bold text-red-500 mb-2">15+</div>
-              <div class="text-gray-300">Events Annually</div>
-            </div>
-          </div>
-        </div>
-        <div class="rounded-xl overflow-hidden relative">
-          <img src="https://i.imgur.com/NOG3MiL.jpeg" alt="Cultural event" class="w-full h-auto rounded-xl" />
-          <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
-        </div>
-      </div>
+  <!-- About Content -->
+  <section class="min-h-screen flex flex-col items-center justify-center px-6 pt-32">
+    <div class="max-w-4xl text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6 text-red-500">About MQ Indian Society</h1>
+      <p class="text-gray-300 text-lg leading-relaxed">
+        Established in 2022, the Macquarie University Indian Society (MQIS) is the largest cultural student society on campus, celebrating Indian heritage through vibrant events, music, food, and community. 
+        Our mission is to create a welcoming space for Indian and non-Indian students alike to share and explore Indian traditions, festivals, and values while networking and building lifelong friendships.
+      </p>
+      <p class="text-gray-400 mt-6">
+        From Holi and Diwali to career networking nights and campus collaborations, MQIS is a home away from home for over 800+ members and continues to grow as a dynamic, student-led community.
+      </p>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="py-12 px-6 md:px-12 bg-black bg-opacity-50">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center md:items-start">
-      <div class="flex items-center mb-4 md:mb-0">
-        <img src="https://i.imgur.com/0iXcWul.png" alt="MQIS Logo" class="w-10 h-10 object-contain mr-3" />
-        <span class="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-red-600">MQIS</span>
-      </div>
-      <div class="text-gray-500 text-sm text-center md:text-right">
-        © 2025 MQ Indian Society. All rights reserved.
-      </div>
-    </div>
-  </footer>
+  <script>
+    function createStars() {
+      const spaceBg = document.getElementById('space-bg');
+      const starCount = 200;
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 2 + 1;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.setProperty('--duration', `${Math.random() * 5 + 3}s`);
+        spaceBg.appendChild(star);
+      }
+    }
 
+    function initAsteroids() {
+      const container = document.getElementById('asteroids-container');
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      container.appendChild(renderer.domElement);
+
+      const asteroids = [];
+      for (let i = 0; i < 8; i++) {
+        const size = Math.random() * 0.5 + 0.3;
+        const geometry = new THREE.SphereGeometry(size, 8, 8);
+        const material = new THREE.MeshBasicMaterial({ color: 0x888888, wireframe: true, transparent: true, opacity: 0.6 });
+        const asteroid = new THREE.Mesh(geometry, material);
+        asteroid.position.x = (Math.random() - 0.5) * 100;
+        asteroid.position.y = (Math.random() - 0.5) * 100;
+        asteroid.position.z = (Math.random() - 0.5) * 100;
+        asteroid.userData = {
+          velocity: new THREE.Vector3(
+            (Math.random() - 0.5) * 0.02,
+            (Math.random() - 0.5) * 0.02,
+            (Math.random() - 0.5) * 0.02
+          )
+        };
+        scene.add(asteroid);
+        asteroids.push(asteroid);
+      }
+
+      camera.position.z = 50;
+
+      function animate() {
+        requestAnimationFrame(animate);
+        asteroids.forEach(asteroid => {
+          asteroid.position.add(asteroid.userData.velocity);
+          if (asteroid.position.x > 50) asteroid.position.x = -50;
+          if (asteroid.position.x < -50) asteroid.position.x = 50;
+          if (asteroid.position.y > 50) asteroid.position.y = -50;
+          if (asteroid.position.y < -50) asteroid.position.y = 50;
+          if (asteroid.position.z > 50) asteroid.position.z = -50;
+          if (asteroid.position.z < -50) asteroid.position.z = 50;
+        });
+        renderer.render(scene, camera);
+      }
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      animate();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      createStars();
+      initAsteroids();
+    });
+
+    // Mobile Menu Toggle
+    const toggleButton = document.getElementById('mobileMenuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    toggleButton.addEventListener('click', function (e) {
+      e.stopPropagation();
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!mobileMenu.contains(e.target) && !toggleButton.contains(e.target)) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+  </script>
 </body>
 </html>
