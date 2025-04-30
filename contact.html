@@ -250,5 +250,27 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggleButton = document.getElementById('mobileMenuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    if (toggleButton && mobileMenu) {
+      toggleButton.addEventListener('click', function (event) {
+        event.stopPropagation(); // Prevent the click from closing the menu
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      // Optional: close the menu if user taps outside it
+      document.addEventListener('click', function (event) {
+        if (!mobileMenu.contains(event.target) && !toggleButton.contains(event.target)) {
+          mobileMenu.classList.add('hidden');
+        }
+      });
+    }
+  });
+</script>
+
+  
 </body>
 </html>
