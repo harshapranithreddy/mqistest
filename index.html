@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MQ Indian Society</title>
     <link rel="icon" type="image/png" href="media/other/logo.png" sizes="32x32"/>
+    <link rel="preload" as="video" href="media/homepage/BackgroundVideo.mp4" type="video/mp4">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
@@ -262,7 +263,7 @@
         
           <!-- ✅ Video Background -->
           <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-40">
-            <source src="media/homepage/BackgroundVideo.mp4" type="video/mp4" />
+            <source rel="preload" src="media/homepage/BackgroundVideo.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
