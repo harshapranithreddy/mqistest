@@ -39,15 +39,17 @@
     }
 
   .boxes {
-  height: 100vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 70vh;
   width: 100%;
   overflow: hidden;
-  position: absolute;
-  transform-style: preserve-3d;
   perspective: 800px;
-  touch-action: none;
   z-index: 10;
 }
+
 
 .box {
   transform-style: preserve-3d;
